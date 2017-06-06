@@ -5,14 +5,17 @@ import logging
 import requests
 
 class SlackListener():
-	webhook = None
+    webhook = None
 
-	def __init__(self, webhook):
-		self.webhook = webhook
+    def __init__(self, webhook):
+        self.webhook = webhook
 
-	def recieve(self, tweet):
-		data = json.dumps({'text':message})
-		headers = {'Content-Type':'application/json', 'Content-Length':str(len(data))}
-		logging.debug('post message to webhook: %s', self.webhook)
-		requests.post(self.webhook, data=data, headers=headers)
+    def post(data, headers):
+        requests.post(self.webhook, data=data, headers=headers)
+
+    def recieve(self, message):
+        data = json.dumps({'text':message})
+        headers = {'Content-Type':'application/json', 'Content-Length':str(len(data))}
+        logging.debug('post message to webhook: %s', self.webhook)
+        self.post(data, headers)
 
