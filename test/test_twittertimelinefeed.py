@@ -37,6 +37,7 @@ class TestTwitterTimelineFeed(unittest.TestCase):
 
         self.assertEqual(tweet0.id, server.last_tweet_id)
         mock_get_tweets.assert_called_once_with('realDonaldTrump', None, 1)
+        mock_get_tweets.reset_mock()
         for listener in listeners:
             listener.assert_not_called()
 
@@ -45,8 +46,8 @@ class TestTwitterTimelineFeed(unittest.TestCase):
         server.poll_twitter()
 
         self.assertEqual(tweet2.id, server.last_tweet_id)
-        mock_get_tweets.assert_called_with('realDonaldTrump', tweet0.id, None)
-        self.assertEqual(2, mock_get_tweets.call_count)
+        mock_get_tweets.assert_called_once_with('realDonaldTrump', tweet0.id, None)
+        mock_get_tweets.reset_mock()
         for listener in listeners:
             listener.assert_has_calls([call.recieve(tweet1.text), call.recieve(tweet2.text)])
             self.assertEqual(2, listener.recieve.call_count)
@@ -56,8 +57,8 @@ class TestTwitterTimelineFeed(unittest.TestCase):
         server.poll_twitter()
 
         self.assertEqual(tweet4.id, server.last_tweet_id)
-        mock_get_tweets.assert_called_with('realDonaldTrump', tweet2.id, None)
-        self.assertEqual(3, mock_get_tweets.call_count)
+        mock_get_tweets.assert_called_once_with('realDonaldTrump', tweet2.id, None)
+        mock_get_tweets.reset_mock()
         for listener in listeners:
             listener.assert_has_calls([call.recieve(tweet1.text), call.recieve(tweet2.text), call.recieve(tweet3.text), call.recieve(tweet4.text)])
             self.assertEqual(4, listener.recieve.call_count)

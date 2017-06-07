@@ -8,8 +8,8 @@ import unnamedbot
 
 def main(argv):
     try:
-        # TODO - Actually validate arguments and get logging parameters from commandline
-        logging.basicConfig(format="%(asctime)s %(levelname)-7s %(module)-20s %(message)s", level=logging.DEBUG)
+        # TODO - add argument parsing to take a config file and an optional logging config (Default to journalctrl?)
+        logging.basicConfig(format="%(levelname)s: %(module)s: %(message)s", level=logging.DEBUG)
         listeners = []
         for webhook in argv[6::]:
             listeners.append(unnamedbot.SlackListener(webhook))

@@ -8,7 +8,7 @@ from mock import patch
 
 class TestSlackListener(unittest.TestCase):
 
-    @patch('unnamedbot.SlackListener.post')
+    @patch('requests.post')
     def test_recieve(self, mock_post):
         listener = SlackListener('https://webhook.com')
         message = 'This is a tweet'
