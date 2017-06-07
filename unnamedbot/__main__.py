@@ -13,15 +13,16 @@ def main(argv):
         listeners = []
         for webhook in argv[6::]:
             listeners.append(unnamedbot.SlackListener(webhook))
-        logging.info('Starting Twitter Timeline Feed')
+        logging.info('Starting Twitter Timeline Feed for %s', argv[5])
         feed = unnamedbot.TwitterTimelineFeed(argv[1], argv[2], argv[3], argv[4], argv[5], listeners)
         feed.run()
     except Exception as e:
-        sys.stderr.write('%s\nUSAGE: %s\n' % (e, argv[0]))
-        sys.stderr.flush()
+        logging.exception('Unhandled exception exiting: %s', e)
+    finally:
+        logging.info('Twitter Timeline Feed Shutdown')
 
 if __name__ == '__main__':
     try:
         main(sys.argv)
     except KeyboardInterrupt:
-        print('')
+        pass

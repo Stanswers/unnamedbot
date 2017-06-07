@@ -37,7 +37,7 @@ class TwitterTimelineFeed():
                 except Exception as e:
                     logging.exception('failed process tweet')
         except Exception as e:
-            logging.exception('failed to poll %s twitter feed', self.user_name, e)
+            logging.exception('failed to poll %s twitter feed: %s', self.user_name, e)
 
     def get_tweets(self, screen_name, since_id, count):
         return self.twitter_client.GetUserTimeline(screen_name=screen_name,
