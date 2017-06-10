@@ -1,0 +1,12 @@
+[Unit]
+Description=Unnamed Robot Daemon
+After=network.target
+
+[Service]
+User=unnamedbot
+Group=unnamedbot
+ExecStart=/opt/unnamedbot/unnamedbot
+
+[Install]
+WantedBy=multi-user.target
+
